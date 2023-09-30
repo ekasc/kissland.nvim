@@ -77,7 +77,7 @@ local theme = lush(function(injected_functions)
 		String { fg = white.darken(10) },
 		Character { String },
 		Number { fg = amber },
-		Boolean { fg = red },
+		Boolean { Number },
 		Float { Number },
 
 		Identifier { fg = mintGreen.darken(10) },
@@ -94,7 +94,7 @@ local theme = lush(function(injected_functions)
 		Exeception { Conditional },
 
 		PreProc { fg = cerulean },
-		Type { fg = red },
+		Type { MoreMsg },
 		Special { fg = cerulean.lighten(10), gui = "bold" },
 		SpecialChar { fg = cerulean.lighten(50), gui = "bold" },
 		Error { fg = white, bg = red, gui = "boldunderline" },
