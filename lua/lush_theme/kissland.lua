@@ -2,18 +2,18 @@
 local lush = require "lush"
 local hsl = lush.hsl
 -- colors
-local black = hsl "#000000"
-local grey = black.lighten(50)
-local red = hsl "#FF0000"
-local electricBlue = hsl "#0066FF"
-local cerulean = hsl "#007BA7"
-local skyBlue = hsl "#87CEEB"
-local limeGreen = hsl "#00FF00"
-local mintGreen = hsl "#98FF98"
-local tealGreen = hsl "#008080"
-local white = hsl "#F8F8FF"
-local amber = hsl "#FFBF00"
-local darkBackground = electricBlue.darken(90)
+local black = hsl "#0a0f0e" -- Deepest green-black
+local grey = hsl "#495057"
+local red = hsl "#fa5252" -- Neon red (softened)
+local electricBlue = hsl "#228be6"
+local cerulean = hsl "#1098ad"
+local skyBlue = hsl "#4dabf7"
+local limeGreen = hsl "#82c91e" -- Neon lime
+local mintGreen = hsl "#12b886" -- Teal/Mint green (primary accent)
+local tealGreen = hsl "#087f5b"
+local white = hsl "#c1c2c3" -- Muted off-white
+local amber = hsl "#fab005"
+local darkBackground = hsl "#050807" -- Night city background
 
 local bg = darkBackground
 
@@ -21,153 +21,286 @@ local theme = lush(function(injected_functions)
 	local sym = injected_functions.sym
 
 	return {
-		Normal { fg = white }, -- normal text
+		Normal { fg = white, bg = "none" }, -- normal text
 		Comment { fg = black.lighten(50), gui = "italic" }, -- any comment
 
-		NormalFloat { fg = white },
+		NormalFloat { fg = white, bg = "none" },
+		FloatBorder { fg = cerulean, bg = "none" },
+		FloatTitle { fg = skyBlue, gui = "bold", bg = "none" },
 
-		VertSplit { fg = Comment.fg.darken(25) },
-		StatusLineNC { fg = Comment.fg.darken(25) },
-		StatusLine { Comment, fg = Comment.fg.darken(25), gui = "underline" },
-		LineNr { StatusLineNC, gui = "nocombine" },
-		CursorLineNr { StatusLine, gui = "nocombine" },
+		ColorColumn { bg = "none" },
+		Cursor { fg = black, bg = white },
+		lCursor { Cursor },
+		CursorIM { Cursor },
+		CursorColumn { bg = "none" },
+		CursorLine { bg = "none", gui = "underline" },
+		LineNr { fg = grey.darken(20), bg = "none" },
+		CursorLineNr { fg = amber, gui = "bold", bg = "none" },
 
-		ColorColumn { bg = bg },
-		CursorColumn {},
-		CursorLine {},
-
-		Folded { fg = white, gui = "bold" },
-		FoldColumn { Normal, fg = Folded.fg },
-		SignColumn { FoldColumn },
-
-		Conceal { Normal },
 		Directory { fg = cerulean.lighten(10) },
+		EndOfBuffer { fg = bg.lighten(10), bg = "none" },
+		ErrorMsg { fg = red, gui = "bold" },
+		VertSplit { fg = bg.lighten(15), bg = "none" },
+		WinSeparator { VertSplit },
+		Folded { fg = grey, bg = "none", gui = "italic" },
+		FoldColumn { fg = grey, bg = "none" },
+		SignColumn { bg = "none" },
+		Substitute { fg = amber, bg = "none", gui = "reverse" },
+		LineNrAbove { LineNr },
+		LineNrBelow { LineNr },
 
-		DiffAdd { fg = black, bg = limeGreen },
-		DiffChange { fg = black, bg = amber },
-		DiffDelete { fg = black, bg = red },
+		MatchParen { fg = electricBlue, gui = "bold,underline" },
+		ModeMsg { fg = mintGreen, gui = "bold" },
+		MsgArea { fg = white, bg = "none" },
+		MsgSeparator { fg = grey, bg = "none" },
+		MoreMsg { fg = mintGreen, gui = "bold" },
+		NonText { fg = grey.darken(30), bg = "none" },
+		Whitespace { NonText },
+		NormalNC { Normal },
+		Pmenu { fg = white, bg = "none" },
+		PmenuSel { fg = skyBlue, bg = "none", gui = "reverse" },
+		PmenuSbar { bg = "none" },
+		PmenuThumb { fg = grey, bg = "none", gui = "reverse" },
+		Question { fg = mintGreen, gui = "bold" },
+		QuickFixLine { fg = skyBlue, bg = "none", gui = "bold,reverse" },
+		Search { fg = amber, bg = "none", gui = "bold,reverse" },
+		IncSearch { fg = mintGreen, bg = "none", gui = "bold,reverse" },
+		CurSearch { IncSearch },
+		SpecialKey { fg = electricBlue },
+		SpellBad { gui = "undercurl", sp = red },
+		SpellCap { gui = "undercurl", sp = electricBlue },
+		SpellLocal { gui = "undercurl", sp = skyBlue },
+		SpellRare { gui = "undercurl", sp = mintGreen },
 
-		Pmenu { fg = white },
-		PmenuSel { DiffAdd },
-		PmenuSbar { bg = grey },
-		PmenuThumb { bg = white },
+		StatusLine { fg = white, bg = "none", gui = "underline" },
+		StatusLineNC { fg = grey, bg = "none", gui = "underline" },
+		TabLine { fg = grey, bg = "none" },
+		TabLineFill { bg = "none" },
+		TabLineSel { fg = white, bg = "none", gui = "bold,underline" },
+		Title { fg = skyBlue, gui = "bold" },
+		Visual { fg = electricBlue, bg = "none", gui = "reverse" },
+		VisualNOS { Visual },
+		WarningMsg { fg = amber, gui = "bold" },
+		WildMenu { fg = skyBlue, bg = "none", gui = "reverse" },
+		WinBar { StatusLine },
+		WinBarNC { StatusLineNC },
 
-		Title { fg = skyBlue },
-		Visual { fg = black, bg = skyBlue },
-		MatchParen { fg = red, gui = "underline" },
-
-		MsgLine { gui = "italic" },
-		MoreMsg { fg = skyBlue },
-		Question { MoreMsg, gui = "nocombine" },
-		ErrorMsg { fg = red, gui = "boldunderline" },
-		WarningMsg { fg = amber },
-
-		NonText { fg = mintGreen },
-		EndOfBuffer { fg = bg.lighten(10) },
-		Search { fg = black, bg = skyBlue.lighten(25), gui = "italicboldunderline" },
-		SpecialKey { fg = cerulean },
-
-		--
+		DiffAdd { fg = limeGreen, bg = "none", gui = "reverse" },
+		DiffChange { fg = amber, bg = "none", gui = "reverse" },
+		DiffDelete { fg = red, bg = "none", gui = "reverse" },
+		DiffText { fg = skyBlue, bg = "none", gui = "bold,reverse" },
 
 		Constant { fg = red },
-		String { fg = white.darken(10) },
+		String { fg = mintGreen },
 		Character { String },
 		Number { fg = amber },
-		Boolean { Number },
+		Boolean { fg = red.lighten(20) },
 		Float { Number },
 
-		Identifier { fg = mintGreen.darken(10) },
-		Function { gui = "bold", fg = red.lighten(15) },
+		Identifier { fg = skyBlue },
+		Function { fg = limeGreen, gui = "bold" },
 		Method { Function },
 
-		Statement { fg = tealGreen.lighten(20), gui = "bold" },
-		Label { Statement },
-		Punctuation { Statement },
-		Operator { Statement },
-		Keyword { Statement },
-		Conditional { fg = electricBlue, gui = "italic" },
+		Statement { fg = electricBlue, gui = "bold" },
+		Conditional { Statement, gui = "bold,italic" },
 		Repeat { Conditional },
+		Label { Statement },
+		Operator { fg = white.darken(20) },
+		Keyword { Statement },
 		Exception { Conditional },
 
-		PreProc { fg = cerulean },
-		Type { MoreMsg },
-		Special { fg = cerulean.lighten(10), gui = "bold" },
-		SpecialChar { fg = cerulean.lighten(50), gui = "bold" },
-		Error { fg = white, bg = red, gui = "boldunderline" },
-		Todo { fg = black, bg = limeGreen },
+		PreProc { fg = cerulean.lighten(20) },
+		Include { PreProc },
+		Define { PreProc },
+		Macro { PreProc },
+		PreCondit { PreProc },
+
+		Type { fg = cerulean.lighten(40) },
+		StorageClass { Statement },
+		Structure { Type },
+		Typedef { Type },
+
+		Special { fg = amber.lighten(10) },
+		SpecialChar { Special },
+		Tag { Special },
+		Delimiter { fg = white.darken(30) },
+		SpecialComment { Comment, fg = grey.lighten(20) },
+		Debug { Special },
+
+		Underlined { gui = "underline" },
+		Bold { gui = "bold" },
+		Italic { gui = "italic" },
+		Ignore { fg = grey },
+		Error { fg = white, bg = "none", gui = "bold,reverse" },
+		Todo { fg = mintGreen, bg = "none", gui = "bold,reverse" },
 
 		-- LSP
-
-		DiagnosticError { fg = red.saturate(20) },
-		DiagnosticWarn { fg = amber.saturate(20) },
-		DiagnosticHint { fg = skyBlue.saturate(50) },
-		DiagnosticInfo { fg = white },
+		DiagnosticError { fg = red },
+		DiagnosticWarn { fg = amber },
+		DiagnosticInfo { fg = skyBlue },
+		DiagnosticHint { fg = mintGreen },
 
 		DiagnosticSignError { DiagnosticError },
 		DiagnosticSignWarn { DiagnosticWarn },
-		DiagnosticSignHint { DiagnosticHint },
 		DiagnosticSignInfo { DiagnosticInfo },
-		DiagnosticVirtualTextError { fg = DiagnosticError.fg.lighten(25), gui = "bold" },
-		DiagnosticVirtualTextWarn { fg = DiagnosticWarn.fg.lighten(25), gui = "bold" },
-		DiagnosticVirtualTextHint { fg = DiagnosticHint.fg.lighten(25) },
-		DiagnosticVirtualTextInfo { fg = DiagnosticInfo.fg.lighten(25) },
+		DiagnosticSignHint { DiagnosticHint },
 
-		DiagnosticUnderlineError { gui = "underline" },
-		DiagnosticUnderlineWarn { gui = "underline" },
-		DiagnosticUnderlineHint { gui = "underline" },
-		DiagnosticUnderlineInfo { gui = "underline" },
+		DiagnosticVirtualTextError { fg = red.darken(20), gui = "italic" },
+		DiagnosticVirtualTextWarn { fg = amber.darken(20), gui = "italic" },
+		DiagnosticVirtualTextInfo { fg = skyBlue.darken(20), gui = "italic" },
+		DiagnosticVirtualTextHint { fg = mintGreen.darken(20), gui = "italic" },
 
-		DiagnosticFloatError { DiagnosticVirtualTextError },
-		DiagnosticFloatWarn { DiagnosticVirtualTextWarn },
-		DiagnosticFloatHint { DiagnosticVirtualTextHint },
-		DiagnosticFloatInfo { DiagnosticVirtualTextInfo },
-
-		-- Telescope highlighting (borders are ugly by default)
-		TelescopeNormal { Normal },
-		TelescopeMatching { Identifier, fg = cerulean.lighten(20), gui = "italic" },
-		TelescopePromptBorder { NonText, gui = "nocombine" },
-		TelescopeSelection {},
-		-- TelescopeMultiSelection { Search },
-		TelescopeSelectionCaret { TelescopePromptBorder },
-		TelescopePromptPrefix {},
-		TelescopeResultsBorder {},
-		TelescopePreviewBorder {},
-		TelescopePreviewLine { Search, gui = "inverse" },
-
-		-- gitsigns
-		GitSignsAdd { fg = DiffAdd.bg },
-		GitSignsChange { fg = DiffChange.bg },
-		GitSignsDelete { fg = DiffDelete.bg },
-
-		-- headlines
-		CodeBlock { bg = bg.lighten(5) },
-		HeadLine { bg = bg.lighten(10) },
+		DiagnosticUnderlineError { gui = "undercurl", sp = red },
+		DiagnosticUnderlineWarn { gui = "undercurl", sp = amber },
+		DiagnosticUnderlineInfo { gui = "undercurl", sp = skyBlue },
+		DiagnosticUnderlineHint { gui = "undercurl", sp = mintGreen },
 
 		-- Treesitter
-		sym "@constructor" { Special },
-		sym "@punctuation" { Punctuation },
-		sym "@punctuation.bracket" { Punctuation },
-		sym "@punctuation.delimiter" { Punctuation },
-		sym "@punctuation.special" { Punctuation },
-		sym "@symbol" { Constant },
+		sym "@variable" { fg = white },
+		sym "@variable.builtin" { fg = electricBlue, gui = "italic" },
 		sym "@constant" { Constant },
-		sym "@constant.builtin" { Keyword },
-		sym "@string.escape" { Character },
+		sym "@constant.builtin" { fg = amber, gui = "bold" },
+		sym "@constant.macro" { PreProc },
+		sym "@module" { fg = skyBlue },
+		sym "@module.builtin" { sym "@module", gui = "italic" },
+		sym "@label" { Label },
+		sym "@string" { String },
+		sym "@string.documentation" { String, gui = "italic" },
+		sym "@string.regexp" { fg = amber },
+		sym "@string.escape" { fg = amber, gui = "bold" },
+		sym "@string.special" { Special },
+		sym "@character" { Character },
+		sym "@character.special" { Special },
+		sym "@number" { Number },
+		sym "@number.float" { Float },
+		sym "@boolean" { Boolean },
+		sym "@type" { Type },
+		sym "@type.builtin" { Type, gui = "italic" },
+		sym "@type.definition" { Typedef },
+		sym "@type.qualifier" { fg = electricBlue },
+		sym "@attribute" { PreProc },
+		sym "@property" { fg = white.darken(10) },
+		sym "@function" { Function },
+		sym "@function.builtin" { Function, gui = "italic" },
+		sym "@function.call" { Function },
+		sym "@function.macro" { PreProc },
 		sym "@method" { Method },
-		sym "@function" { Method },
-		sym "@function.call" { Method },
-		sym "@function.builtin" { Method },
+		sym "@method.call" { Method },
+		sym "@constructor" { Special },
+		sym "@operator" { Operator },
+		sym "@keyword" { Keyword },
+		sym "@keyword.function" { Keyword },
+		sym "@keyword.return" { Keyword, gui = "italic" },
+		sym "@keyword.operator" { Keyword },
+		sym "@keyword.import" { Include },
+		sym "@keyword.conditional" { Conditional },
+		sym "@keyword.repeat" { Repeat },
+		sym "@keyword.exception" { Exception },
+		sym "@punctuation.delimiter" { Delimiter },
+		sym "@punctuation.bracket" { Delimiter },
+		sym "@punctuation.special" { Special },
+		sym "@comment" { Comment },
+		sym "@comment.documentation" { SpecialComment },
+		sym "@comment.error" { fg = red, gui = "bold" },
+		sym "@comment.warning" { fg = amber, gui = "bold" },
+		sym "@comment.note" { fg = skyBlue, gui = "bold" },
+		sym "@comment.todo" { Todo },
+		sym "@markup.strong" { Bold },
+		sym "@markup.italic" { Italic },
+		sym "@markup.strikethrough" { gui = "strikethrough" },
+		sym "@markup.underline" { Underlined },
+		sym "@markup.heading" { Title },
+		sym "@markup.quote" { fg = grey },
+		sym "@markup.math" { fg = mintGreen },
+		sym "@markup.environment" { PreProc },
+		sym "@markup.link" { fg = skyBlue, gui = "underline" },
+		sym "@markup.link.label" { fg = cerulean },
+		sym "@markup.link.url" { fg = cerulean, gui = "italic,underline" },
+		sym "@markup.raw" { fg = mintGreen },
+		sym "@markup.list" { fg = amber },
+		sym "@markup.list.checked" { fg = limeGreen },
+		sym "@markup.list.unchecked" { fg = grey },
+		sym "@diff.plus" { DiffAdd },
+		sym "@diff.minus" { DiffDelete },
+		sym "@diff.delta" { DiffChange },
+		sym "@tag" { fg = skyBlue },
+		sym "@tag.attribute" { fg = white.darken(20) },
+		sym "@tag.delimiter" { fg = skyBlue.darken(30) },
 
-		-- HTML
-		sym "@tag.delimiter.html" { fg = skyBlue },
-		sym "@tag.attribute.html" { Identifier },
+		-- Telescope
+		TelescopeNormal { fg = white, bg = "none" },
+		TelescopeBorder { fg = cerulean, bg = "none" },
+		TelescopePromptBorder { TelescopeBorder },
+		TelescopeResultsBorder { TelescopeBorder },
+		TelescopePreviewBorder { TelescopeBorder },
+		TelescopeSelection { fg = skyBlue, bg = "none", gui = "bold,reverse" },
+		TelescopeSelectionCaret { fg = amber, bg = "none" },
+		TelescopeMatching { fg = mintGreen, gui = "bold" },
+		TelescopePromptPrefix { fg = electricBlue },
 
-		-- Svelte
-		sym "@tag.delimiter.svelte" { fg = skyBlue },
-		sym "@tag.attribute.svelte" { Identifier },
+		-- Gitsigns
+		GitSignsAdd { fg = limeGreen },
+		GitSignsChange { fg = amber },
+		GitSignsDelete { fg = red },
+
+		-- Cmp
+		CmpItemAbbr { fg = white },
+		CmpItemAbbrDeprecated { fg = grey, gui = "strikethrough" },
+		CmpItemAbbrMatch { fg = skyBlue, gui = "bold" },
+		CmpItemAbbrMatchFuzzy { CmpItemAbbrMatch },
+		CmpItemKind { fg = cerulean },
+		CmpItemMenu { fg = grey },
 
 		-- Mason
-		MasonNormal { NormalFloat },
+		MasonNormal { fg = white, bg = "none" },
+		MasonHeader { bg = "none", fg = electricBlue, gui = "bold,reverse" },
+		MasonHighlight { fg = electricBlue },
+		MasonHighlightBlock { bg = "none", fg = electricBlue, gui = "reverse" },
+		MasonHighlightBlockBold { bg = "none", fg = electricBlue, gui = "bold,reverse" },
+		MasonHeaderSecondary { bg = "none", fg = amber, gui = "bold,reverse" },
+		MasonMuted { fg = grey },
+		MasonMutedBlock { bg = "none", fg = grey, gui = "reverse" },
+
+		-- LspReference
+		LspReferenceText { bg = "none", gui = "underline" },
+		LspReferenceRead { LspReferenceText },
+		LspReferenceWrite { LspReferenceText, gui = "bold,underline" },
+
+		-- Indent Blankline
+		IblIndent { fg = grey.darken(30) },
+		IblWhitespace { fg = grey.darken(30) },
+		IblScope { fg = cerulean },
+
+		-- Headlines
+		CodeBlock { bg = "none", gui = "underline" },
+		HeadLine { bg = "none", gui = "bold,underline" },
+
+		-- NvimTree
+		NvimTreeNormal { fg = white, bg = "none" },
+		NvimTreeNormalNC { NvimTreeNormal },
+		NvimTreeRootFolder { fg = electricBlue, gui = "bold" },
+		NvimTreeGitDirty { fg = amber },
+		NvimTreeGitNew { fg = limeGreen },
+		NvimTreeGitDeleted { fg = red },
+		NvimTreeSpecialFile { fg = amber, gui = "underline" },
+		NvimTreeIndentMarker { fg = grey },
+		NvimTreeImageFile { fg = skyBlue },
+		NvimTreeSymlink { fg = cerulean },
+		NvimTreeFolderName { fg = white },
+		NvimTreeOpenedFolderName { fg = skyBlue, gui = "bold" },
+
+		-- Neo-tree
+		NeoTreeRootName { NvimTreeRootFolder },
+		NeoTreeNormal { fg = white, bg = "none" },
+		NeoTreeNormalNC { NeoTreeNormal },
+		NeoTreeDirectoryName { NvimTreeFolderName },
+		NeoTreeDirectoryIcon { fg = skyBlue },
+		NeoTreeGitModified { NvimTreeGitDirty },
+		NeoTreeGitAdded { NvimTreeGitNew },
+		NeoTreeGitDeleted { NvimTreeGitDeleted },
+		NeoTreeGitUntracked { fg = mintGreen },
+		NeoTreeIndentMarker { NvimTreeIndentMarker },
+		NeoTreeSymbolicLinkTarget { NvimTreeSymlink },
 	}
 end)
 return theme
