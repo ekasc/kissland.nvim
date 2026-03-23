@@ -4,9 +4,15 @@ Kissland.nvim
 A kissland inspired theme made with Lush!
 
 # Installation
-packer
+
+**lazy.nvim**
 ```lua
-use "ekasc/kissland.nvim"
+{ "ekasc/kissland.nvim", dependencies = { "rktjmp/lush.nvim" } }
+```
+
+**packer.nvim**
+```lua
+use { "ekasc/kissland.nvim", requires = { "rktjmp/lush.nvim" } }
 ```
 
 # Usage

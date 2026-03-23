@@ -17,10 +17,6 @@ local darkBackground = electricBlue.darken(90)
 
 local bg = darkBackground
 
--- terminal colors
-
--- directory and prompt
-
 local theme = lush(function(injected_functions)
 	local sym = injected_functions.sym
 
@@ -91,7 +87,7 @@ local theme = lush(function(injected_functions)
 		Keyword { Statement },
 		Conditional { fg = electricBlue, gui = "italic" },
 		Repeat { Conditional },
-		Exeception { Conditional },
+		Exception { Conditional },
 
 		PreProc { fg = cerulean },
 		Type { MoreMsg },
@@ -125,12 +121,6 @@ local theme = lush(function(injected_functions)
 		DiagnosticFloatWarn { DiagnosticVirtualTextWarn },
 		DiagnosticFloatHint { DiagnosticVirtualTextHint },
 		DiagnosticFloatInfo { DiagnosticVirtualTextInfo },
-
-		-- Treesitter
-		-- TSKeyword { Conditional },
-		-- TSKeywordFunction { PreProc },
-		-- TSFuncBuiltin { PreProc },
-		-- TSField {},
 
 		-- Telescope highlighting (borders are ugly by default)
 		TelescopeNormal { Normal },
