@@ -24,19 +24,19 @@ require('lush')(theme)
 local colors = theme.lush_setup_data or theme
 if colors then
     vim.g.terminal_color_0  = "#0a0f0e" -- black
-    vim.g.terminal_color_1  = "#fa5252" -- red
-    vim.g.terminal_color_2  = "#82c91e" -- limeGreen
-    vim.g.terminal_color_3  = "#fab005" -- amber
-    vim.g.terminal_color_4  = "#228be6" -- electricBlue
-    vim.g.terminal_color_5  = "#1098ad" -- cerulean
-    vim.g.terminal_color_6  = "#4dabf7" -- skyBlue
-    vim.g.terminal_color_7  = "#c1c2c3" -- white
-    vim.g.terminal_color_8  = "#495057" -- grey
-    vim.g.terminal_color_9  = "#ff6b6b" -- bright red
-    vim.g.terminal_color_10 = "#12b886" -- bright green
-    vim.g.terminal_color_11 = "#ffd43b" -- bright amber
-    vim.g.terminal_color_12 = "#74c0fc" -- bright electricBlue
-    vim.g.terminal_color_13 = "#3bc9db" -- bright cerulean
-    vim.g.terminal_color_14 = "#a5d8ff" -- bright skyBlue
+    vim.g.terminal_color_1  = "#c25d5d" -- red
+    vim.g.terminal_color_2  = "#98c379" -- limeGreen
+    vim.g.terminal_color_3  = "#c0ca8e" -- distinct Cold Citron
+    vim.g.terminal_color_4  = "#7da2e0" -- readable electricBlue
+    vim.g.terminal_color_5  = "#66c2cd" -- readable cerulean
+    vim.g.terminal_color_6  = "#82c0f0" -- readable skyBlue
+    vim.g.terminal_color_7  = "#dcdfe1" -- crisp white
+    vim.g.terminal_color_8  = "#7c828c" -- readable grey
+    vim.g.terminal_color_9  = "#e06c75" -- bright red
+    vim.g.terminal_color_10 = "#98c379" -- bright green
+    vim.g.terminal_color_11 = "#d7e0a8" -- bright Cold Citron
+    vim.g.terminal_color_12 = "#61afef" -- bright electricBlue
+    vim.g.terminal_color_13 = "#56b6c2" -- bright cerulean
+    vim.g.terminal_color_14 = "#abb2bf" -- bright skyBlue
     vim.g.terminal_color_15 = "#f8f9fa" -- bright white
 end

@@ -2,18 +2,18 @@
 local lush = require "lush"
 local hsl = lush.hsl
 -- colors
-local black = hsl "#0a0f0e" -- Deepest green-black
-local grey = hsl "#495057"
-local red = hsl "#fa5252" -- Neon red (softened)
-local electricBlue = hsl "#228be6"
-local cerulean = hsl "#1098ad"
-local skyBlue = hsl "#4dabf7"
-local limeGreen = hsl "#82c91e" -- Neon lime
-local mintGreen = hsl "#12b886" -- Teal/Mint green (primary accent)
-local tealGreen = hsl "#087f5b"
-local white = hsl "#c1c2c3" -- Muted off-white
-local amber = hsl "#fab005"
-local darkBackground = hsl "#050807" -- Night city background
+local black = hsl "#0a0f0e"
+local grey = hsl "#6b727b"
+local red = hsl "#c25d5d"
+local electricBlue = hsl "#7da2e0"
+local cerulean = hsl "#66c2cd"
+local skyBlue = hsl "#82c0f0"
+local limeGreen = hsl "#98c379"
+local mintGreen = hsl "#7eb3aa"
+local tealGreen = hsl "#5c9689"
+local white = hsl "#a8b2b2" -- Deeper atmospheric white
+local amber = hsl "#c0ca8e" -- Brightened Cold Citron for Data Visibility
+local darkBackground = hsl "#050807"
 
 local bg = darkBackground
 
@@ -93,38 +93,38 @@ local theme = lush(function(injected_functions)
 		Constant { fg = red },
 		String { fg = mintGreen },
 		Character { String },
-		Number { fg = amber },
-		Boolean { fg = red.lighten(20) },
+		Number { fg = amber, gui = "bold" }, -- Distinct 'Cold Citron' Data
+		Boolean { fg = red.lighten(20), gui = "bold" },
 		Float { Number },
 
-		Identifier { fg = skyBlue },
+		Identifier { fg = mintGreen.darken(10) }, -- Atmospheric Identifiers (Fluid Flow)
 		Function { fg = limeGreen, gui = "bold" },
 		Method { Function },
 
-		Statement { fg = electricBlue, gui = "bold" },
-		Conditional { Statement, gui = "bold,italic" },
+		Statement { fg = electricBlue },
+		Conditional { Statement, gui = "italic" },
 		Repeat { Conditional },
-		Label { Statement },
-		Operator { fg = white.darken(20) },
-		Keyword { Statement },
+		Label { Statement, gui = "italic" },
+		Operator { fg = white.darken(30), gui = "italic" }, -- Fluid 'Connectors'
+		Keyword { Statement, gui = "italic" },
 		Exception { Conditional },
 
-		PreProc { fg = cerulean.lighten(20) },
+		PreProc { fg = skyBlue },
 		Include { PreProc },
 		Define { PreProc },
 		Macro { PreProc },
 		PreCondit { PreProc },
 
-		Type { fg = cerulean.lighten(40) },
-		StorageClass { Statement },
+		Type { fg = red, gui = "italic" },
+		StorageClass { Statement, gui = "italic" },
 		Structure { Type },
 		Typedef { Type },
 
-		Special { fg = amber.lighten(10) },
+		Special { fg = skyBlue.lighten(20) },
 		SpecialChar { Special },
-		Tag { Special },
-		Delimiter { fg = white.darken(30) },
-		SpecialComment { Comment, fg = grey.lighten(20) },
+		Tag { fg = electricBlue, gui = "bold" },
+		Delimiter { fg = white.darken(50), gui = "italic" }, -- Muted, fluid structure
+		SpecialComment { Comment, fg = grey.lighten(20), gui = "italic" },
 		Debug { Special },
 
 		Underlined { gui = "underline" },
@@ -156,30 +156,32 @@ local theme = lush(function(injected_functions)
 		DiagnosticUnderlineHint { gui = "undercurl", sp = mintGreen },
 
 		-- Treesitter
-		sym "@variable" { fg = white },
-		sym "@variable.builtin" { fg = electricBlue, gui = "italic" },
+		sym "@variable" { fg = white }, -- Baseline
+		sym "@variable.builtin" { fg = skyBlue, gui = "italic" },
+		sym "@variable.parameter" { fg = amber, gui = "italic" }, -- Fluid Inputs
+		sym "@variable.member" { fg = cerulean, gui = "italic" }, -- Fluid Members
 		sym "@constant" { Constant },
-		sym "@constant.builtin" { fg = amber, gui = "bold" },
+		sym "@constant.builtin" { fg = red, gui = "bold" },
 		sym "@constant.macro" { PreProc },
 		sym "@module" { fg = skyBlue },
 		sym "@module.builtin" { sym "@module", gui = "italic" },
 		sym "@label" { Label },
 		sym "@string" { String },
 		sym "@string.documentation" { String, gui = "italic" },
-		sym "@string.regexp" { fg = amber },
-		sym "@string.escape" { fg = amber, gui = "bold" },
+		sym "@string.regexp" { fg = red },
+		sym "@string.escape" { fg = red, gui = "bold" },
 		sym "@string.special" { Special },
 		sym "@character" { Character },
 		sym "@character.special" { Special },
 		sym "@number" { Number },
 		sym "@number.float" { Float },
 		sym "@boolean" { Boolean },
-		sym "@type" { Type },
+		sym "@type" { Type, gui = "italic" }, -- Flowing Types
 		sym "@type.builtin" { Type, gui = "italic" },
 		sym "@type.definition" { Typedef },
-		sym "@type.qualifier" { fg = electricBlue },
+		sym "@type.qualifier" { fg = electricBlue, gui = "italic" },
 		sym "@attribute" { PreProc },
-		sym "@property" { fg = white.darken(10) },
+		sym "@property" { fg = skyBlue, gui = "italic" }, -- Fluid Properties
 		sym "@function" { Function },
 		sym "@function.builtin" { Function, gui = "italic" },
 		sym "@function.call" { Function },
